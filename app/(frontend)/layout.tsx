@@ -6,7 +6,7 @@ export default function FrontLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6 max-w-[1400px] mx-auto">
         <Header/>
         {children}
     </div>

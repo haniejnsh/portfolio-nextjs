@@ -1,12 +1,18 @@
 import Image from "next/image";
 // import x from "../../public/CV."
+import girl from "../../public/images/girl4.png"
+import { useState } from "react";
 
 export default function Home() {
+
+  
+
   return (
-    <div >
+    <div className="flex flex-col items-center lg:flex-row lg:justify-center">
+      
       <div className="flex flex-col items-start py-10 px-2 w-[85%] text-justify">
         <p className="text-[10px] text-stone-800 m-0">Hello i am</p>
-        <p className="text-base text-pink-350 m-0">Hanieh Janeshinpour</p>
+        <p className="text-base text-pink-350 m-0 font-bold">Hanieh Janeshinpour</p>
         <p className="text-3xl text-stone-900 font-bold m-0 mt-2">Frontend</p>
         <p className="text-3xl text-stone-900 m-0 p-0 pl-6 font-bold mb-3">Developer</p>
         <p className="text-[10px] text-stone-800 m-0">
@@ -15,6 +21,10 @@ export default function Home() {
         <a href="/cv.pdf" download="CV_Hanieh_Janeshinpour.pdf" className="bg-pink-350 text-white text-xs cursor-pointer transition rounded-sm px-3 py-1 my-5 hover:bg-pink-300">
           Download CV
         </a>
+      </div>
+
+      <div className="w-[90%] max-w-[200px]">
+        <Image src={girl} alt="picture" className="w-full"/>
       </div>
 
     </div>

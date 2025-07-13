@@ -3,10 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* --pink-3520:rgb(253, 165, 213);
-  --pink-2830:rgb(253, 126, 196);
-  --pink-2350:rgb(251, 100, 182); */
+  --test-3520:#ffffffe2;
+  --test-320:#000000be;
 }
+
 
 @theme inline {
   --color-background: var(--background);
