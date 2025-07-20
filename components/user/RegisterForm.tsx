@@ -1,6 +1,6 @@
 "use client"
 
-import { registerAction } from "@/actions/userActions";
+import { registerAction } from "@/actions/registerActions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";

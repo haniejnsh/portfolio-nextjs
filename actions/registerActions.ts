@@ -1,21 +1,9 @@
 "use server"
-// import { signIn } from "@/auth";
 import dbConnect from "@/db/db-connect";
 import UserModel from "@/models/UserModel";
 import z from "zod";
 
-// export async function loginAction (formData:FormData){
-//     try{
-//         const res=await signIn("credentials" , {
-//             username:formData.get("username"),
-//             password:formData.get("password"),
-//             redirect:false,
-//         })
-//         return res;
-//     }catch(e){
-//         console.log("e from userAction: ",e)
-//     }
-// }
+
 
 export async function registerAction (prevState:any , formData:FormData){
     const schema=z.object({

@@ -1,8 +1,11 @@
+
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import CreateNote from "@/components/CreateNote";
 import NoteCard from "@/components/NoteCard";
-import RegisterForm from "@/components/user/RegisterForm";
 import dbConnect from "@/db/db-connect";
 import noteModel from "@/models/noteModel";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 interface noteItem {
   _id: string;
@@ -12,6 +15,15 @@ interface noteItem {
   updatedAt: string;
 }
 export default async function NotesPage() {
+  
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/authentication/login");
+  }
+  console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",session)
+  
+
   await dbConnect();
   const notes=await noteModel.find({})
   const parsedNotes:noteItem[]=JSON.parse(JSON.stringify(notes))
@@ -19,8 +31,7 @@ export default async function NotesPage() {
   return (
     <div className="">
       
-      {/* <CreateNote/> */}
-      <RegisterForm/>
+      <CreateNote/>
       
       <div className="flex flex-col gap-2 mb-5">
         <h2 className="flex items-center">

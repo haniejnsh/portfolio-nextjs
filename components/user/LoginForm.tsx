@@ -1,21 +1,49 @@
 "use client"
+import { loginAction } from "@/actions/authAction";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { ImEye } from "react-icons/im";
 import { RiEyeCloseFill } from "react-icons/ri";
 
 export default function LoginForm() {
     const[showPass,setShowPass] = useState(false)
+    const [error, setError] = useState("");
+    const [error2, setError2] = useState("");
     const router=useRouter()
+    // console.log("res from login form sssssssssssssss: 5555555")
+    async function onSubmit(e : FormEvent<HTMLFormElement>){
+        e.preventDefault();
+        try{
+            console.log("111111111111111111111111111")
+            const formData=new FormData(e.currentTarget);
+            console.log("2222222222222222222222222",formData)
+            // const res=await loginAction(formData);
+            const res = await signIn("credentials", {
+                username: formData.get("username"),
+                password: formData.get("password"),
+                redirect: false,
+            });
+            console.log("3333333333333333333333333")
+            if (res?.error) {
+                setError2(res.error)
+            } else {
+             router.push("/");
+            }
+        }catch(e){
+            console.log("e from form login: ",e)
+            setError("Authentication Failed");
+        }
+    }
   
     return (
       <div 
       className="w-full h-full flex flex-col gap-3 justify-center items-center animate-[var(--animation-tran2)] mt-20"
-      
       >
           <form  
           className="bg-white border border-pink-200 rounded-sm flex flex-col px-4 pt-8 pb-6 items-center gap-5 relative animate-[var(--animation-tran1)]  w-[80%]"
+          onSubmit={onSubmit}
           >
             <div className="absolute -top-6 text-lg text-white bg-pink-200 rounded-full p-3">
                 <FaRegUser />
@@ -75,7 +103,7 @@ export default function LoginForm() {
             </span> 
             first
         </div>
-          <span className="text-red-400 text-xs h-4">{"state?.message"}</span>
+          <span className="text-red-400 text-xs h-4">{`${error} ::: ${error2}`}</span>
       </div>
     )
 }
