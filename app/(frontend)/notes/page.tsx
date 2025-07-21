@@ -13,21 +13,32 @@ interface noteItem {
   content: string;
   createdAt: string;
   updatedAt: string;
+  author: {
+      _id: string;
+      username: string;
+      role: string;
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+    },
 }
 export default async function NotesPage() {
   
   const session = await getServerSession(authOptions);
-
+console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",session?.user._id)
   if (!session) {
     redirect("/authentication/login");
   }
-  console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",session)
+  
   
 
   await dbConnect();
-  const notes=await noteModel.find({})
-  const parsedNotes:noteItem[]=JSON.parse(JSON.stringify(notes))
-  console.log("allparse notesssssssssssssss:",parsedNotes)
+  const allNotes=await noteModel.find().populate("author", "-password -__v")
+  const parsedAllNotes:noteItem[]=JSON.parse(JSON.stringify(allNotes))
+  const authorNotes=await noteModel.find({author: session.user._id}).populate("author", "-password -__v")
+  const parsedAuthorNotes:noteItem[]=JSON.parse(JSON.stringify(authorNotes))
+  console.log("allparse notesssssssssssssss:",parsedAllNotes)
   return (
     <div className="">
       
@@ -39,8 +50,8 @@ export default async function NotesPage() {
           <span className="grow-1 bg-pink-300 h-[0.1px]"></span>
         </h2>
         <div className="flex flex-wrap justify-around lg:justify-start lg:gap-5">
-          {parsedNotes.map((item,index)=>(
-              <NoteCard key={index} details={item}/>
+          {parsedAuthorNotes.map((item,index)=>(
+              <NoteCard key={index} details={item} tools={true}/>
            ))}
         </div>
       </div>
@@ -50,8 +61,8 @@ export default async function NotesPage() {
           <span className="grow-1 bg-pink-300 h-[0.1px]"></span>
         </h2>
         <div className="flex flex-wrap justify-around lg:justify-start lg:gap-5">
-          {parsedNotes.map((item,index)=>(
-            <NoteCard key={index} details={item}/>
+          {parsedAllNotes.map((item,index)=>(
+            <NoteCard key={index} details={item} tools={false}/>
           ))}
         </div>
       </div>

@@ -1,21 +1,28 @@
 "use client"
 
 import { useState } from "react"
-import CreateForm from "./CreateForm"
+import CreateEditNoteModal from "./CreateEditNoteModal"
 
 export default function CreateNote() {
-    const [showForm, setShowForm]=useState(false)
+
+    const [createModalOpen, setCreateModalOpen]=useState(false)
+    // const router=useRouter()
+    // const user=useAuthStore((state)=>state.user)
+
+    // useEffect(()=>{
+    //   if(!user){router.push("/authentication/login")}
+    // },[router,user])
+
   return (
     <div className="">
         <button
         className="bg-pink-350 text-white text-xs cursor-pointer transition rounded-sm px-3 py-1 my-4 hover:bg-pink-300 lg:text-sm lg:py-2"
-        onClick={()=>setShowForm(true)}
+        onClick={()=>setCreateModalOpen(true)}
         >
           Add Note
         </button>
-        <button>login</button>
         {
-            showForm?(<CreateForm handleShowForm={(h)=>setShowForm(h)}/>):("")
+            createModalOpen?(<CreateEditNoteModal openModal={(h)=>setCreateModalOpen(h)} noteDetails={null}/>):("")
         }
     </div>
   )

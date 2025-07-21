@@ -12,12 +12,14 @@ declare module "next-auth" {
       image?: string | null;
       username: string;
       role: string;
+      _id: string;
     };
   }
 
   interface User {
     username: string;
     role: string;
+    _id: string;
   }
 }
 
@@ -26,6 +28,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     username: string;
     role: string;
+    _id: string;
   }
 }
 
@@ -56,6 +59,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.username = user.username;
         token.role = user.role;
+        token._id = user._id;
       }
       return token;
     },
@@ -63,6 +67,7 @@ export const authOptions: NextAuthOptions = {
         if (session.user) {
             session.user.username = token.username;
             session.user.role = token.role;
+            session.user._id = token._id;
         }
         return session;
     },
