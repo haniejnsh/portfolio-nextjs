@@ -15,8 +15,13 @@ export default function Home() {
         <p className="text-3xl text-stone-900 font-bold m-0 mt-2 lg:text-5xl">Frontend</p>
         <p className="text-3xl text-stone-900 m-0 p-0 pl-6 font-bold mb-3 lg:text-5xl lg:pl-20 lg:mb-6">Developer</p>
         <p className="text-[10px] text-stone-800 m-0 lg:text-base">
-          I am interested in    front-end development and have completed specialized courses in React.js from Maktab Sharif. During the course, I worked on numerous projects. I am ready to leverage my technical abilities in real-world projects and continue to learn and grow.
+          passionate about clean coding, simple design, and continuous learning.
+          I invite you to explore my portfolio and get to know my work and professional journey in React and Next.js.
         </p>
+        {/* <p>
+          سلام، من حانیه جانشین‌پور هستم — توسعه‌دهنده فرانت‌اند که به کدنویسی مرتب، طراحی ساده و یادگیری مداوم علاقه‌مندم.
+          از شما دعوت می‌کنم از این پورتفولیو دیدن کنید و با نمونه‌کارها و مسیر حرفه‌ای من در حوزه React و Next.js آشنا شوید.
+        </p> */}
         <a href="/cv.pdf" download="CV_Hanieh_Janeshinpour.pdf" className="bg-pink-350 text-white text-xs cursor-pointer transition rounded-sm px-3 py-1 my-5 hover:bg-pink-300 lg:text-sm lg:py-2 lg:mt-8">
           Download CV
         </a>

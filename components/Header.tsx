@@ -25,7 +25,7 @@ export default function Header() {
     }
 
   return (
-    <header className="flex justify-between lg:gap-10">
+    <header className="flex justify-between lg:gap-10 px-4 pt-6 max-w-[1200px] w-full">
         <div className="text-stone-700 text-sm flex gap-1 lg:text-base">
             <span className="text-pink-350 font-bold">Hanieh</span>
             <span>Janeshinpour</span>
@@ -47,9 +47,6 @@ export default function Header() {
                 </li>
                 <li className={`${menuStyle} ${pathName==="/notes"?"text-pink-350":"text-stone-700"}`} >
                     <Link href={"/notes"}>Notes</Link>
-                </li>
-                <li className={`${menuStyle} ${pathName==="/contact"?"text-pink-350":"text-stone-700"}`} >
-                    <Link href={"/contact"}>Contact</Link>
                 </li>
                 <li 
                 className={`${menuStyle} ${pathName==="/authentication"?"text-pink-350":"text-stone-700"}`} 
