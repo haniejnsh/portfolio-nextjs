@@ -20,12 +20,13 @@ interface noteItem {
 
 export default function NoteCard({details , tools} :{details : noteItem , tools: boolean} ) {
   return (
-    <div className="border border-pink-200 rounded-sm px-2 pt-2 w-36 flex flex-col items-center gap-3">
+    <div className="border border-pink-200 rounded-sm px-4 pt-4 pb-2 w-full flex flex-col h-40 gap-3">
         <h3 className="font-bold text-stone-700">{details.title}</h3>
-        <p className="text-center text-xs text-stone-600">{details.content}</p>
-        <div className="flex flex-col justify-between items-start w-full">
-            <span className="text-[0.5rem] text-pink-350">{formatToEnglishDate(details.createdAt)}</span>
-            <span className="text-[0.5rem] text-pink-350">{details.author.name}</span>
+        <p className="text-justify grow text-xs text-stone-600 break-all whitespace-normal">{details.content}</p>
+        <div className="flex justify-between w-full">
+          <span className="text-[0.5rem] text-pink-350">{details.author.name}</span>
+          <span className="text-[0.5rem] text-pink-350">{formatToEnglishDate(details.createdAt)}</span>
+            
         </div>
         {
           tools? (

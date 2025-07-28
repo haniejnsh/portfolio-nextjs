@@ -9,7 +9,7 @@ export default function FrontLayout({
   return (
     <div className=" mx-auto flex flex-col min-h-screen items-center">
         <Header/>
-        <main className="grow px-4 max-w-[1200px] w-full">
+        <main className="grow px-8 max-w-[1200px] w-full">
           {children}
         </main>
         <Footer/>
