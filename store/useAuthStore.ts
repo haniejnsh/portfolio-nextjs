@@ -20,4 +20,3 @@ export const useAuthStore = create<AuthStore>((set) => ({
   setUser: (user) => set({ user }),
   logout: () => set({ user: null }),
 }))
-

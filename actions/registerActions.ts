@@ -4,8 +4,7 @@ import UserModel from "@/models/UserModel";
 import z from "zod";
 
 
-
-export async function registerAction (prevState:any , formData:FormData){
+export async function registerAction (prevState:unknown , formData:FormData){
     const schema=z.object({
         username: z.string().min(4, "Username must be at least 4 characters"),
         password: z.string().min(5, "Password must be at least 5 characters"),
@@ -20,13 +19,13 @@ export async function registerAction (prevState:any , formData:FormData){
         email: formData.get("email"),
     })
     if (!parsed.success) {
-    const errors = parsed.error.flatten().fieldErrors;
+    const errors = z.treeifyError(parsed.error);
     const message =
-      errors.username?.[0] ||
-      errors.password?.[0] ||
-      errors.name?.[0] ||
-      errors.email?.[0] ||
-      "Invalid form data";
+        errors.properties?.username?.errors[0] ||
+        errors.properties?.password?.errors[0] ||
+        errors.properties?.name?.errors[0] ||
+        errors.properties?.email?.errors[0] ||
+        "Invalid form data";
 
     return { message };
   }

@@ -6,6 +6,13 @@ import { useRef } from 'react'
 interface PropsType {
   isEducation: boolean;
 }
+interface ItemsType {
+  title: string;
+  place: string;
+  date: string;
+  description?: string;
+}
+
 export default function Experience({isEducation} :PropsType) {
 
   const experiences = [
@@ -43,7 +50,7 @@ const education = [
 ]
 
 
-const ExperienceItem = ({ title, place, date, description }: any) => {
+const ExperienceItem = ({ title, place, date, description }: ItemsType) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -53,10 +60,13 @@ const ExperienceItem = ({ title, place, date, description }: any) => {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <li ref={ref} className="relative pl-7 border-l-2 border-pink-100 mb-0 pb-8">
-      {/* دایره متحرک */}
-      <figure className="absolute -left-[10px] top-1">
-        <svg width="20" height="20">
+    <li ref={ref} className="relative pl-7 lg:pl-9 border-l-2 border-pink-100 mb-0 pb-8 lg:pb-16 lg:pt-[2px]">
+      
+      <figure className="absolute -left-[10px] lg:-left-[17px] top-1 lg:-top-[1px]">
+        <svg 
+        className="w-5 h-5 lg:w-8 lg:h-8" 
+        viewBox="0 0 20 20"
+        >
           <circle
             cx="10"
             cy="10"
@@ -77,12 +87,10 @@ const ExperienceItem = ({ title, place, date, description }: any) => {
           />
         </svg>
       </figure>
-
-      {/* محتوای سابقه کاری */}
-      <h3 className="text-lg font-bold text-stone-700 mb-1">{title}</h3>
-      <p className="text-sm font-bold text-stone-700">{place} — {date}</p>
+      <h3 className="text-lg font-bold text-[var(--stone-700)] mb-1 lg:mb-2">{title}</h3>
+      <p className="text-sm font-bold text-[var(--stone-700)]lg:text-base lg:text-[var(--stone-600)]">{place} — {date}</p>
       {(description)?
-        <p className="text-sm text-stone-600 text-justify mt-1">{description}</p>
+        <p className="text-sm text-[var(--stone-600)] text-justify mt-1 lg:text-base">{description}</p>
       :""}
     </li>
   )
@@ -103,25 +111,3 @@ const ExperienceItem = ({ title, place, date, description }: any) => {
   )
 }
 
-
-/* <p>
-          توسعه‌دهنده فرانت‌اند
-شرکت قسطیلا، تهران — آذر ۱۴۰۳ تا خرداد ۱۴۰۴
-توسعه و نگهداری وب‌سایت شرکت با استفاده از React. همکاری با تیم برای پیاده‌سازی رابط‌های کاربری ریسپانسیو و کاربرپسند.
-
-کارآموز React
-بوت‌کمپ مکتب شریف — فروردین ۱۴۰۳ تا مهر ۱۴۰۳
-شرکت در دوره‌ی ۷ ماهه آموزش React و اجرای چندین پروژه عملی با استفاده از ابزارهای مدرن فرانت‌اند.
-
-کارشناس الکترونیک
-شرکت درکاو، تهران — آذر ۱۴۰۰ تا خرداد ۱۴۰۲
-فعالیت در زمینه طراحی، تست و عیب‌یابی مدارهای الکترونیکی.
-        </p> */
-
-
-
-        /* <p>
-          کارشناسی ارشد مهندسی برق (الکترونیک)، دانشگاه شهید بهشتی، تهران (۱۳۹۷–۱۴۰۰)
-
-          کارشناسی مهندسی برق، دانشگاه شهید باهنر کرمان (۱۳۹۲–۱۳۹۶)
-        </p> */

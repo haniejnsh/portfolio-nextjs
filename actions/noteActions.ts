@@ -1,6 +1,6 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 import dbConnect from "@/db/db-connect";
 import noteModel from "@/models/noteModel";
 import { getServerSession } from "next-auth";
@@ -16,8 +16,8 @@ export async function createNote( prevState: unknown , formData:FormData) {
   }
 
   const schema=z.object({
-    title:z.string().min(4),
-    content:z.string().min(10)
+    title:z.string().min(4, "Title must be at least 4 characters").max(22, "Title must be at most 22 characters"),
+    content:z.string().min(10, "Content must be at least 10 characters")
   });
   const parse=schema.safeParse({
     title: formData.get("title"),
@@ -25,22 +25,26 @@ export async function createNote( prevState: unknown , formData:FormData) {
   });
 
   if(!parse.success){
-    return {
-      message:"form data is not valid!!"
-    }
+    const errors = z.treeifyError(parse.error);
+      const message =
+        errors.properties?.title?.errors[0] ||
+        errors.properties?.content?.errors[0] ||
+        "Invalid form data";
+   
+    return { message };
   }
   const data={
     ...parse.data,
     author: session.user._id,
   }
-  console.log("dataaaaaaaaaaa",data)
+  
   try{
     await dbConnect();
     const note=new noteModel(data);
     await note.save();
     revalidatePath("/notes")
     return {
-      message:"Note created successfully :)"
+      message:"Created successfully :)"
     }  
   } catch(e){
     console.log("e from note action" , e)
@@ -57,8 +61,8 @@ export async function editNote(prevState: unknown, formData: FormData) {
 
   const schema = z.object({
     _id: z.string().min(1),
-    title: z.string().min(4),
-    content: z.string().min(10),
+    title:z.string().min(4, "Title must be at least 4 characters").max(22, "Title must be at most 22 characters"),
+    content:z.string().min(10, "Content must be at least 10 characters")
   });
 
   const parse = schema.safeParse({
@@ -66,13 +70,15 @@ export async function editNote(prevState: unknown, formData: FormData) {
     title: formData.get("title"),
     content: formData.get("content"),
   });
-console.log("dataaaaa ediiiiiiiite" , formData.get("_id"))
-console.log("dataaaaa ediiiiiiiite" , formData.get("title"))
-console.log("dataaaaa ediiiiiiiite" , formData.get("content"))
+
   if (!parse.success) {
-    return {
-      message: "Form data is not valid!!",
-    };
+    const errors = z.treeifyError(parse.error);
+      const message =
+        errors.properties?.title?.errors[0] ||
+        errors.properties?.content?.errors[0] ||
+        "Invalid form data";
+   
+    return { message };
   }
 
   try {
@@ -86,7 +92,7 @@ console.log("dataaaaa ediiiiiiiite" , formData.get("content"))
     revalidatePath("/notes");
 
     return {
-      message: "Note updated successfully :)",
+      message: "Updated successfully :)",
     };
   } catch (e) {
     console.log("Error from updateNote action:", e);
@@ -118,8 +124,8 @@ export async function  deleteNote(prevState: unknown , formData:FormData){
   try{
     await dbConnect();
     await noteModel.findOneAndDelete({_id: parse.data._id});
-    revalidatePath("/notes")
-    return { message : "Note successfully deleted :)"}
+    // revalidatePath("/notes")
+    return { message : "Deleted successfully :)"}
   }catch(e){
     return { message : e}
   }

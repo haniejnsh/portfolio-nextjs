@@ -16,6 +16,6 @@ export default function AuthSync() {
             logout();
         }
     }, [session, status, setUser, logout]);
-
+    
     return null
 }

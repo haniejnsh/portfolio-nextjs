@@ -7,7 +7,7 @@ export default function FrontLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className=" mx-auto flex flex-col min-h-screen items-center">
+    <div className="mx-auto flex flex-col min-h-screen items-center bg-[var(--bg-main)] transition-colors duration-500">
         <Header/>
         <main className="grow px-8 max-w-[1200px] w-full">
           {children}

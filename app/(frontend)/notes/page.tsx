@@ -1,75 +1,85 @@
-
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import CreateNote from "@/components/CreateNote";
-import NoteCard from "@/components/NoteCard";
+import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import CreateNote from "@/components/note-items/CreateNote";
+import GoToLogin from "@/components/note-items/GoToLogin";
+import NotesList from "@/components/note-items/NotesList";
 import dbConnect from "@/db/db-connect";
 import noteModel from "@/models/noteModel";
-import { span } from "framer-motion/client";
+import { NoteItemsType } from "@/models/NoteType";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
-interface noteItem {
-  _id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  author: {
-      _id: string;
-      username: string;
-      role: string;
-      name: string;
-      email: string;
-      createdAt: string;
-      updatedAt: string;
-    },
-}
 export default async function NotesPage() {
   
   const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/authentication/login");
-  }
-  
+  const page = 1;
+  const limit = 6;
+  const limitAuth=4
   
 
   await dbConnect();
-  const allNotes=await noteModel.find().populate("author", "-password -__v")
-  const parsedAllNotes:noteItem[]=JSON.parse(JSON.stringify(allNotes))
-  const authorNotes=await noteModel.find({author: session.user._id}).populate("author", "-password -__v")
-  const parsedAuthorNotes:noteItem[]=JSON.parse(JSON.stringify(authorNotes))
-  if(parsedAllNotes.length!==0){
-    console.log("allparse notesssssssssssssss:",parsedAllNotes)
+
+  const totalNotes = await noteModel.countDocuments(); 
+  const totalPages = Math.ceil(totalNotes / limit);
+  const allNotes=await noteModel.find()
+    .sort({ createdAt: -1 })
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .populate("author", "-password -__v");
+  const parsedAllNotes:NoteItemsType[]=JSON.parse(JSON.stringify(allNotes));
+
+  let parsedAuthorNotes:NoteItemsType[]=parsedAllNotes
+  let totalAuthorPages:number=totalPages
+  if (session) {
+    console.log("first,",session.user)
+    const totalAuthorNotes = await noteModel.countDocuments({ author: session.user._id });
+    totalAuthorPages = Math.ceil(totalAuthorNotes / limitAuth);
+    const authorNotes=await noteModel.find({author: session.user._id})
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * (limitAuth))
+      .limit(limitAuth)
+      .populate("author", "-password -__v")
+    parsedAuthorNotes=JSON.parse(JSON.stringify(authorNotes));
   }
   
   return (
-    <div className="py-10">
-      
+    <div className="flex flex-col py-10 w-full lg:pb-32 lg:pt-20">
+      <h1 className="w-full text-2xl font-bold text-[var(--stone-700)] mb-8 animate-[var(--animation-tran1)] lg:text-3xl lg:mb-12">Notes</h1>
       <CreateNote/>
-      
-      <div className="flex flex-col gap-2 mb-8 mt-5">
+      <div className="flex flex-col gap-4 mb-16 mt-10 lg:mt-16 lg:gap-10 animate-[var(--animation-tran1)] [animation-delay:0.5s] opacity-0">
         <h2 className="flex items-center">
-          <span className="text-xs text-pink-350 mr-2">Your Notes</span>
-          <span className="grow-1 bg-pink-300 h-[0.1px]"></span>
+          <span className="text-xs text-pink-350 mr-2 lg:text-base">
+            {session?`${session.user.name} Notes` : "Your Notes"}
+          </span>
+          <span className="grow-1 bg-[rgba(253,165,213,0.32)] h-[0.1px] lg:h-[3px] lg:rounded-2xl"></span>
         </h2>
-        <div className="flex flex-wrap justify-around lg:justify-start lg:gap-5">
-          {(parsedAuthorNotes.length===0)?
-          (<span className="text-stone-300 text-xs my-10">No notes have been added by you yet.</span>):parsedAuthorNotes.map((item,index)=>(
-              <NoteCard key={index} details={item} tools={true}/>
-           ))}
+        {(session)?(
+          <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:px-6">
+          {(parsedAuthorNotes?.length===0)?
+            (<span className="text-[var(--stone-300)] text-xs mt-8 lg:mt-12 mb-0 lg:mb-4  text-center lg:w-full lg:col-span-2 lg:text-base px-3">
+              No notes have been added by you yet.
+            </span>):
+            <NotesList initialNotes={parsedAuthorNotes} totalPages={totalAuthorPages} limit={limitAuth} author={session.user._id}/>
+          }
           
         </div>
+        ):(
+          <div className="text-[var(--stone-400)] text-center text-xs px-4 lg:text-base w-full mt-8 lg:mt-12 mb-0 lg:mb-4 ">
+            To view, edit, and delete your notes, please <GoToLogin/>first.
+          </div>
+        )}
+        
       </div>
-      <div className="flex flex-col gap-4 mb-5">
+      <div className="flex flex-col gap-4 mb-5 lg:mt-10 lg:gap-10  animate-[var(--animation-tran1)] [animation-delay:1s] opacity-0">
         <h2 className="flex items-center">
-          <span className="text-xs text-pink-350 mr-2">All Notes</span>
-          <span className="grow-1 bg-pink-300 h-[0.1px]"></span>
+          <span className="text-xs text-pink-350 mr-2 lg:text-base">All Notes</span>
+          <span className="grow-1 bg-[rgba(253,165,213,0.32)] h-[0.1px] lg:h-[3px] lg:rounded-2xl"></span>
         </h2>
-        <div className="flex flex-col items-center gap-4 lg:justify-start lg:gap-5">
+        <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:px-6">
           {(parsedAllNotes.length===0)?
-          (<span className="text-stone-300 text-xs my-10">No notes yet.</span>):parsedAllNotes.map((item,index)=>(
-            <NoteCard key={index} details={item} tools={false}/>
-          ))}
+            (<span className="text-[var(--stone-300)] text-xs mt-8 lg:mt-12 mb-0 lg:mb-4  text-center lg:w-full lg:col-span-2 lg:text-base px-3">
+              No notes yet.
+            </span>):
+            <NotesList initialNotes={parsedAllNotes} totalPages={totalPages} limit={limit} author={"all"}/>
+          }
           {}
         </div>
       </div>

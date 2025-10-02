@@ -3,8 +3,9 @@ import { MdMailOutline } from "react-icons/md";
 import { TbBrandGithubFilled } from "react-icons/tb";
 
 export default function Footer() {
+  
   return (
-    <footer className="border-t bg-stone-50 border-pink-200 w-full ">
+    <footer className="border-t bg-[var(--bg-footer)] border-[#9b9b9b3c] w-full ">
       <div className="px-4 pt-16 pb-4 flex  flex-col items-center gap-4">
 
         <nav className="flex items-center gap-3">
@@ -39,13 +40,13 @@ export default function Footer() {
 
         <div className="">
           
-          <a href="mailto:h.janeshinpour1995@gmail.com" className="flex items-center gap-1 text-sm text-stone-600 font-bold">
+          <a href="mailto:h.janeshinpour1995@gmail.com" className="flex items-center gap-1 text-sm text-[var(--stone-600)] font-bold">
             <MdMailOutline className="text-base"/>
             h.janeshinpour1995@gmail.com
           </a>
         </div>
 
-        <small className="border-t-[1px] border-stone-300 text-xs pt-2 text-stone-500 mt-8" >
+        <small className="border-t-[1px] border-[var(--stone-300)] text-xs pt-2 text-stone-500 mt-8" >
           © 2025 Hanieh Janeshinpour, All Rights Reserved.
         </small>
       </div>
