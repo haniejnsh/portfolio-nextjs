@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/(backend)/api/auth/authOptions";
 import CreateNote from "@/components/note-items/CreateNote";
 import GoToLogin from "@/components/note-items/GoToLogin";
 import NotesList from "@/components/note-items/NotesList";
@@ -9,7 +9,7 @@ import { getServerSession } from "next-auth";
 
 export default async function NotesPage() {
   
-  const session = await getServerSession(authOptions);
+   const session =await getServerSession(authOptions)
   const page = 1;
   const limit = 6;
   const limitAuth=4
@@ -29,7 +29,8 @@ export default async function NotesPage() {
   let parsedAuthorNotes:NoteItemsType[]=parsedAllNotes
   let totalAuthorPages:number=totalPages
   if (session) {
-    console.log("first,",session.user)
+    // console.log("first,",session.user)
+    console.log("sesstin .... >   ", session)
     const totalAuthorNotes = await noteModel.countDocuments({ author: session.user._id });
     totalAuthorPages = Math.ceil(totalAuthorNotes / limitAuth);
     const authorNotes=await noteModel.find({author: session.user._id})

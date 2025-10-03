@@ -1,6 +1,6 @@
 "use server";
 
-import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/(backend)/api/auth/authOptions";
 import dbConnect from "@/db/db-connect";
 import noteModel from "@/models/noteModel";
 import { getServerSession } from "next-auth";
@@ -10,7 +10,8 @@ import z from "zod";
 
 export async function createNote( prevState: unknown , formData:FormData) {
 
-  const session=await getServerSession(authOptions)
+  const session =await getServerSession(authOptions)
+  console.log("sesstin .... >   ", session)
   if(!session || !session.user._id){
     redirect("/authentication/login")
   }
@@ -54,7 +55,7 @@ export async function createNote( prevState: unknown , formData:FormData) {
 
 export async function editNote(prevState: unknown, formData: FormData) {
 
-  const session=await getServerSession(authOptions)
+  const session =await getServerSession(authOptions)
   if(!session || !session.user._id){
     redirect("/authentication/login")
   }
@@ -103,7 +104,7 @@ export async function editNote(prevState: unknown, formData: FormData) {
 
 export async function  deleteNote(prevState: unknown , formData:FormData){
 
-  const session=await getServerSession(authOptions)
+   const session =await getServerSession(authOptions)
   if(!session || !session.user._id){
     redirect("/authentication/login")
   }

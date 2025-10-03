@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { NoteItemsType } from "@/types";
 import Pagination from "./Pagination";
 import NoteCard from "./NoteCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaSpinner } from "react-icons/fa";
 import { BiError } from "react-icons/bi";
+import { NoteItemsType } from "@/models/NoteType";
 
 interface PropsType {
   initialNotes: NoteItemsType[];

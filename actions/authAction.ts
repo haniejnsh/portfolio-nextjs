@@ -1,6 +1,8 @@
 "use server"
 
-import { signIn } from "@/utils/auth";
+import { signIn } from "next-auth/react";
+
+// import { signIn } from "@/utils/auth";
 
 export async function loginAction (formData:FormData){
     try{

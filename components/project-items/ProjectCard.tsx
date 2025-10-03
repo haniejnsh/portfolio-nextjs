@@ -1,11 +1,11 @@
-import { ProjectType } from "@/app/(frontend)/projects/_data/projects";
+import { ProjectItemsType } from "@/models/ProjectType";
 import Link from "next/link";
 
-export default function ProjectCard({ project }: { project: ProjectType }) {
+export default function ProjectCard({ project }: { project: ProjectItemsType }) {
   return (
     <Link 
-    href={`/projects/${project.id}`} 
-    className={`flex flex-col gap-4  group w-full h-80 lg:h-96 rounded-sm overflow-hidden p-2 border-2 border-[rgba(253,126,196,0.2)] animate-[var(--animation-tran1)] [animation-delay:${project.id-0.5}s] opacity-0`}
+    href={`/projects/${project._id}`} 
+    className={`flex flex-col gap-4  group w-full h-80 lg:h-96 rounded-sm overflow-hidden p-2 border-2 border-[rgba(253,126,196,0.2)] animate-[var(--animation-tran1)] [animation-delay:0.5s] opacity-0`}
     >
       <div
         className="relative w-full grow bg-contain bg-no-repeat bg-center border border-[rgba(253,126,196,0.1)] rounded-sm "

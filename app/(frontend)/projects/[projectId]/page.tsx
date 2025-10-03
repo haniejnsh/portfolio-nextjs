@@ -1,18 +1,16 @@
 import ProjectGallery from "@/components/project-items/ProjectGalery";
-import { projectsItems } from "../_data/projects";
+import dbConnect from "@/db/db-connect";
+import ProjectModel from "@/models/ProjectModel";
+import { ProjectItemsType } from "@/models/ProjectType";
 
-interface PropsType {
-    params:{
-        projectId : string;
-    }
-}
 
-export default function ProjectDetailsPage({params}: PropsType) {
 
-    const project= projectsItems.find(pro=> pro.id===Number(params.projectId))
-    if(!project){
-        return ("")
-    }
+export default async function ProjectDetailsPage({params}:{params:{projectId:string}}) {
+  await dbConnect();
+  const project1= await ProjectModel.findById(params.projectId);
+  if (!project1) return null;
+  const project:ProjectItemsType=JSON.parse(JSON.stringify(project1));
+  
 
   return (
     <div className="flex flex-col gap-5 py-10 w-full items-center lg:pb-32 lg:pt-20 animate-[var(--animation-tran1)] mb-10">
