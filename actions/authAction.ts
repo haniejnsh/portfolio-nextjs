@@ -9,7 +9,6 @@ export async function loginAction (formData:FormData){
             password:formData.get("password"),
             redirect: false,
         })
-        console.log("ressssss froooooom login action: ",res)
         return res;
     }catch(e){
         console.log("e from userAction: ",e)

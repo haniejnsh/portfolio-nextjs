@@ -31,7 +31,7 @@ export const projectsItems : ProjectType[]=[
             "React Icons",
             "Zod"
         ],
-        github:"",
+        github:"https://github.com/haniejnsh/portfolio-nextjs",
         linkedIn:"",
         link:"",
         images:[
