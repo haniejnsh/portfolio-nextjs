@@ -3,14 +3,18 @@ import dbConnect from "@/db/db-connect";
 import ProjectModel from "@/models/ProjectModel";
 import { ProjectItemsType } from "@/models/ProjectType";
 
+type Params = {
+  projectId: string;
+};
 
-
-export default async function ProjectDetailsPage({params}:{params:{projectId:string}}) {
+export default async function ProjectDetailsPage({ params }: { params: Promise<Params> }) {
+  const { projectId } = await params; 
   await dbConnect();
-  const project1= await ProjectModel.findById(params.projectId);
+
+  const project1 = await ProjectModel.findById(projectId);
   if (!project1) return null;
-  const project:ProjectItemsType=JSON.parse(JSON.stringify(project1));
-  
+
+  const project: ProjectItemsType = JSON.parse(JSON.stringify(project1));
 
   return (
     <div className="flex flex-col gap-5 py-10 w-full items-center lg:pb-32 lg:pt-20 animate-[var(--animation-tran1)] mb-10">

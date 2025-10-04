@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export default function SkillCircle() {
   const [radius, setRadius] = useState(130);
   const [center, setCenter] = useState(180);
-  const [isClient, setIsClient] = useState(false); // تشخیص محیط کلاینت
+  const [isClient, setIsClient] = useState(false); 
 
   useEffect(() => {
     setIsClient(true); // فقط وقتی کامپوننت روی کلاینت ران شد

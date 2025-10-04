@@ -29,8 +29,7 @@ export default async function NotesPage() {
   let parsedAuthorNotes:NoteItemsType[]=parsedAllNotes
   let totalAuthorPages:number=totalPages
   if (session) {
-    // console.log("first,",session.user)
-    console.log("sesstin .... >   ", session)
+  
     const totalAuthorNotes = await noteModel.countDocuments({ author: session.user._id });
     totalAuthorPages = Math.ceil(totalAuthorNotes / limitAuth);
     const authorNotes=await noteModel.find({author: session.user._id})
