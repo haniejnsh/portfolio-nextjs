@@ -60,6 +60,7 @@ export default function SkillCircle() {
                     className="max-w-[12px] max-h-[12px] lg:max-w-[16px] lg:max-h-[16px]"
                     width={50}
                     height={50}
+                    quality={100}
                   />
                 </div>
                 <div className="text-[10px] lg:text-[14px] lg:text-stone-500 text-stone-600 font-bold">{skill}</div>
@@ -106,6 +107,7 @@ export default function SkillCircle() {
                   className="max-w-[12px] max-h-[12px] lg:max-w-[16px] lg:max-h-[16px]"
                   width={50}
                   height={50}
+                  quality={100}
                 />
               </div>
               <div className="text-[10px] lg:text-[14px] text-stone-600 lg:text-stone-500 font-bold">{skill}</div>

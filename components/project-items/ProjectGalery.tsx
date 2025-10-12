@@ -36,8 +36,8 @@ export default function ProjectGallery({ images }: { images: string[] }) {
                  src={img}
                  alt={`Project Image ${idx + 1}`} 
                  className="object-contain w-full h-full"
-                 width={350}
-                 height={350}
+                 fill
+                 quality={100}
                 />
             </div>
             
@@ -60,6 +60,7 @@ export default function ProjectGallery({ images }: { images: string[] }) {
               alt={`Thumbnail ${idx + 1}`}
               width={80}
               height={80}
+              quality={100}
               className="object-contain w-full h-full"
             />
           </div>
