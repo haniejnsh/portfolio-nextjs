@@ -2,13 +2,13 @@ export default function Biography() {
   return (
     <p className="flex flex-col gap-2 text-[var(--stone-600)]">
                 <span className="text-justify text-sm lg:text-base">
-                  I’m Hanieh Janeshinpour. My passion for programming began during my Master’s studies in Electronics in 2018. After working two years in electronics, I pursued that passion by enrolling in an intensive React.js bootcamp at Maktab Sharif in 2024, where I built several projects and sharpened my skills.
+                  I’m Hanieh Janeshinpour, a Front-end Developer with experience in React.js, Next.js, and Vue.js. My passion for programming began during my Master’s studies in Electronics Engineering. In 2024, I pursued this passion by completing an intensive React.js bootcamp at Maktab Sharif, where I developed several projects and strengthened my front-end development skills.
                 </span>
                 <span className="text-justify text-sm lg:text-base">
-                  Following the bootcamp, I started my professional journey as a front-end developer in late 2024. Despite some challenges that led me to leave that role in 2025, I continued growing independently by mastering Next.js and developing my portfolio.
+                  I began my professional career as a Front-end Developer in late 2024, working with React.js. I later expanded my skills through independent Next.js projects and began collaborating with a software development company in December 2025, working with Vue.js and Nuxt.js. My work involves developing applications from scratch, improving existing projects, implementing UI styling and application logic, and collaborating with backend developers to integrate APIs.
                 </span>
                 <span className="text-justify text-sm lg:text-base">
-                  I’m highly motivated, eager to keep learning, and committed to contributing meaningfully to real-world projects.
+                  I’m passionate about continuous learning, solving problems, and contributing to the development of reliable, user-friendly web applications.
                 </span>
               </p>
   )

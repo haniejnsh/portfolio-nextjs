@@ -16,6 +16,12 @@ interface ItemsType {
 export default function Experience({isEducation} :PropsType) {
 
   const experiences = [
+    {
+    title: "Frontend Developer",
+    place: "Vira Company, Tehran",
+    date: "Nov 2025 to present",
+    description: "Developed web applications from scratch and enhanced existing projects using Vue.js and Nuxt.js. Implemented UI styling and application logic, and collaborated with backend developers to integrate APIs across multiple projects.",
+  },
   {
     title: "Frontend Developer",
     place: "ghestila Company, Tehran",

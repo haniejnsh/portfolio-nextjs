@@ -25,7 +25,7 @@ export default function SkillCircle() {
     return () => window.removeEventListener("resize", updateValues);
   }, []);
 
-  const skills = ["CSS","Vite","Router","Redux","","Zustand","Figma","MongoDB","Git","Tailwind","TypeScript","Next.js","","React.js","JavaScript","HTML"];
+  const skills = ["TypeScript","Git","Redux","Vite","","Zustand","MongoDB","CSS","HTML","Tailwind","Vuetify","Vue.js","","React.js","Next.js","JavaScript"];
 
   return (
     <div className="relative w-[360px] h-[360px] lg:w-[500px] lg:h-[500px] mx-auto">
