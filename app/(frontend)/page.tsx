@@ -14,7 +14,7 @@ export default function Home() {
           passionate about clean coding, simple design, and continuous learning.
           I invite you to explore my portfolio and get to know my work and professional journey in React.js ,Next.js and Vue.js.
         </p>
-        <a href="/cv.pdf" download="CV_Hanieh_Janeshinpour.pdf" className="bg-pink-350 text-[var(--bg-main)] text-xs cursor-pointer transition rounded-sm px-3 py-1 my-8 hover:bg-pink-300 lg:text-sm lg:py-2 lg:mt-8 transition-colors duration-500">
+        <a href="/cv5.pdf" download="CV_Hanieh_Janeshinpour.pdf" className="bg-pink-350 text-[var(--bg-main)] text-xs cursor-pointer transition rounded-sm px-3 py-1 my-8 hover:bg-pink-300 lg:text-sm lg:py-2 lg:mt-8 transition-colors duration-500">
           Download CV
         </a>
       </div>
